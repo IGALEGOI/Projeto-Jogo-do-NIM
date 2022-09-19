@@ -1,4 +1,12 @@
-from xml.dom.expatbuilder import parseString
+from os import system, name
+
+def clear():
+
+    if name == 'nt':
+        _ = system('cls')
+ 
+    else:
+        _ = system('clear')
 
 def computadorEscolheJogada(n,m):
     if n > m:
@@ -12,11 +20,9 @@ def computadorEscolheJogada(n,m):
     
 def usuarioEscolheJogada(m):
     while True:
-        try:
-            r = int(input("Quantas peças você vai tirar? "))
-        except:
-            print("Digite um número inteiro maior que 0 e menor ou igual a %s!" %m)
-            continue
+
+        r = int(input("Quantas peças você quer tirar? "))
+
         if r > 0 and r <= m:
             break
         else:
@@ -26,21 +32,17 @@ def usuarioEscolheJogada(m):
     
     return r
 
-def partida():
-    """n, number of pieces on table; m, maximum number of pieces to be removed;"""
-    enterMsg1 = "Quantas peças? "
-    enterMsg2 = "Limite de peças por jogada? "
+def inicio():
+    print("====="," BEM VINDO AO JOGO DO NIM ","=====")
+    print("---"," Tente ganhar do computador ","---")
     while True:
-         try:
-            n = int(input(enterMsg1))
-            m = int(input(enterMsg2))
-            if n > 0 and m > 0 and n > m:
-                break
-            else:
-                print("\nAtenção: 'n' e 'm' devem ser inteiros maiores que 0 e 'n' dever ser maior que 'm'")
-                continue
-         except:
-            print("\nPor favor insira somente números inteiros maiores que 0!\nAtenção: 'n' dever ser maior que 'm'")
+        n = int(input("Quantas peças? "))
+        m = int(input("Limite de peças por jogada? "))
+        if n > 0 and m > 0 and n > m:
+            break
+        else:
+            print("\nAtenção: número e limite de peças devem ser inteiros maiores que 0. E número dever ser maior que limite de peça(s)")
+            continue
     
     if n%(m+1) == 0:
         print("\nVocê começa")
@@ -71,6 +73,13 @@ def partida():
         elif n < m: 
             m = n 
 
-print(5*"="," BEM VINDO AO JOGO DO NIM ",5*"=")
-print(3*"-"," Tente ganhar do computador ",3*"-")
-partida()
+while True:
+    clear()
+    
+    inicio()
+
+    continua = input("\nDeseja continuar? Precione Enter para um novo jogo ou S para sair: ")
+
+    if(continua == 'S' or continua == 's'):
+        clear()
+        break
