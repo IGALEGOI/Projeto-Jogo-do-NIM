@@ -1,3 +1,5 @@
+#Eric Galego Lima RA: G452DC-2
+
 from os import system, name
 
 def clear():
@@ -8,43 +10,44 @@ def clear():
     else:
         _ = system('clear')
 
-def computadorEscolheJogada(n,m):
-    if n > m:
-        r = n%(m+1)
-        print("\nO computador tirou %s peça(s)" %r)
+def computadorEscolheJogada(_numPecas, _limite):
+    if _numPecas > _limite:
+        pecas = _numPecas%(_limite+1)
+        print("\nO computador tirou %s peça(s)" %pecas)
     else:
-        r = m
-        print("\nO computador tirou %s peça(s)" %r)
+        pecas = _limite
+        print("\nO computador tirou %s peça(s)" %pecas)
         
-    return r
+    return pecas
     
-def usuarioEscolheJogada(m):
+def usuarioEscolheJogada(_limite):
     while True:
 
-        r = int(input("Quantas peças você quer tirar? "))
+        pecas = int(input("Quantas peças você quer tirar? "))
 
-        if r > 0 and r <= m:
+        if pecas > 0 and pecas <= _limite:
             break
         else:
-            print("Digite um número inteiro maior que 0 e menor ou igual a %s!" %m)
+            print("Digite um número inteiro maior que 0 e menor ou igual a %s!" %_limite)
             continue
-    print("\nVocê tirou %s peça(s)" %r)
+
+    print("\nVocê tirou %s peça(s)" %pecas)
     
-    return r
+    return pecas
 
 def inicio():
-    print("====="," BEM VINDO AO JOGO DO NIM ","=====")
-    print("---"," Tente ganhar do computador ","---")
+    print("================ SEJA BEM VINDO AO JOGO DO NIM ================")
+    print("------ Vamos ver se você consegue ganhar do computador? -------\n")
     while True:
-        n = int(input("Quantas peças? "))
-        m = int(input("Limite de peças por jogada? "))
-        if n > 0 and m > 0 and n > m:
+        numPecas = int(input("Quantas peças? "))
+        limite = int(input("Limite de peças por jogada? "))
+        if numPecas > 0 and limite > 0 and numPecas > limite:
             break
         else:
-            print("\nAtenção: número e limite de peças devem ser inteiros maiores que 0. E número dever ser maior que limite de peça(s)")
+            print("\nAtenção: número e limite de peças devem ser inteiros e maiores que 0. E número de peça(s) dever ser maior que limite de peça(s)!")
             continue
     
-    if n%(m+1) == 0:
+    if numPecas%(limite+1) == 0:
         print("\nVocê começa")
         quemJoga = "usuario"
     else:
@@ -53,15 +56,15 @@ def inicio():
     
     while True:
         if quemJoga == "usuario":
-            n -= usuarioEscolheJogada(m) 
+            numPecas -= usuarioEscolheJogada(limite) 
             quemJoga = "computador"
         else:
-            n -= computadorEscolheJogada(n,m) 
+            numPecas -= computadorEscolheJogada(numPecas,limite) 
             quemJoga = "usuario"
         
-        print("Agora resta(m) %s peça(s) no tabuleiro." %n)
+        print("Agora resta(m) %s peça(s) no tabuleiro." %numPecas)
         
-        if n == 0:
+        if numPecas == 0:
             if quemJoga == "usuario":
                 vencedor = "computador"
                 print("\nFim do jogo! O %s ganhou!" %vencedor)
@@ -70,8 +73,8 @@ def inicio():
                 vencedor = "VOCÊ"
                 print("\nFim do jogo! %s ganhou!" %vencedor)
                 return vencedor
-        elif n < m: 
-            m = n 
+        elif numPecas < limite: 
+            limite = numPecas 
 
 while True:
     clear()
